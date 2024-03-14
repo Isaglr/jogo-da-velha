@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+        @font-face {
+            font-family: jg;
+            src: url(poker_in_fire/Poker\ in\ Fire.ttf);
+        }
+
+        * {
+            font-family: jg;
+        }
+
+        img {
+            position: absolute;
+            top: 300px;
+            width: 20%;
+            margin-left: 5%;
+            animation: velha 2s;
+        }
+
+        body {
+            background-color: rgb(110, 16, 0);
+        }
+
+        h1 {
+
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 5px 10px 10px rgb(0, 0, 0);
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            gap: 15px;
+            justify-content: center;
+        }
+
+
+        .cell {
+            background-color: #000000;
+            border: 3px solid #ffffff;
+            align-items: center;
+            font-size: 80px;
+            cursor: pointer;
+            font-family: sans-serif;
+            color: #ffffff;
+            padding-left: 38px;
+            font-weight: 800;
+            padding-top: 10px;
+
+        }
+
+        @keyframes velha {
+            from {
+                opacity: 0%;
+            }
+
+            to {
+                opacity: 100%;
+            }
+
+
+        }
+
+        footer {
+
+            position: absolute;
+            bottom: 20px;
+            color: #ffffff;
+            justify-content: center;
+            margin-left: 37%;
+        }
+    </style>
+    <link rel="iconcut icon"
+        href="https://media.istockphoto.com/id/1365567894/pt/vetorial/hand-drawn-vector-tic-tac-toe-game-noughts-and-crosses-doodle-sketch.jpg?s=612x612&w=0&k=20&c=75aXStrlLmbuVX1v4ywCKXhsCMergZ4ex5NcRELGd9U=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+</head>
+
+<body>
+
+    <h1>Jogo da Velha</h1>
+
+
+
+    <div class="board" id="board">
+        <div class="cell" onclick="cellClicked(0)"></div>
+        <div class="cell" onclick="cellClicked(1)"></div>
+        <div class="cell" onclick="cellClicked(2)"></div>
+        <div class="cell" onclick="cellClicked(3)"></div>
+        <div class="cell" onclick="cellClicked(4)"></div>
+        <div class="cell" onclick="cellClicked(5)"></div>
+        <div class="cell" onclick="cellClicked(6)"></div>
+        <div class="cell" onclick="cellClicked(7)"></div>
+        <div class="cell" onclick="cellClicked(8)"></div>
+    </div>
+
+    <script>
+        let currentPlayer = 'X';
+        let board = ['', '', '', '', '', '', '', '', ''];
+
+        function cellClicked(index) {
+            if (board[index] === '') {
+                board[index] = currentPlayer;
+                document.getElementById('board').children[index].innerText = currentPlayer;
+                checkWinner();
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+
+        function checkWinner() {
+            const winConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+
+            ];
+
+            for (let condition of winConditions) {
+                const [a, b, c] = condition;
+                if (board[a] !== '' && board[a] === board
+                [b] && board[a] === board[c]) {
+                    alert(` JOGADOR ${board[a]} VENCEU!`);
+                    resetBoard();
+                    return;
+                }
+            }
+
+            if (!board.includes('')) {
+                alert('EMPATE');
+                resetBoard();
+            }
+        }
+
+        function resetBoard() {
+            currentPlayer = 'X';
+            board = ['', '', '', '', '', '', '', '', ''];
+            for (let i = 0; i < 9; i++) {
+                document.getElementById('board').children
+                [i].innerHTML = '';
+            }
+        }
+    </script>
+    <img src="ilustracao-de-desenho-animado-de-desenho-animado-de-velhinha-desenhada-a-mao_52683-115975-removebg-preview.png"
+        alt="">
+    <footer>Desenvolvido por Isadora Goulart &copy;</footer>
+</body>
+
+</html>
